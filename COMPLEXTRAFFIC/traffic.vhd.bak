@@ -1,0 +1,22 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+entity streetlight is
+   port ( SW: in std_logic_vector(3 downto 0);
+			clock_50: IN std_logic;
+			LEDG :OUT std_logic_vector(7 downto 0)
+			);
+end streetlight;
+ARCHITECTURE behavioral of streetlight is
+signal rope1: std_logic;
+begin
+A1:
+entity work.DIVIDER(behavioral)
+port map(CLKin => CLOCK_50, reset => SW(0), CLKout => rope1);
+A2:
+entity work.FSM(lightswitch)
+port map(clk=> rope1, reset=>SW(0), dout => LEDG, sensor => SW(2 downto 1));
+--wlk => HEX0, wlk2 => HEX1, wlk3 => HEX2, wlk4 =>HEX3);
+
+end behavioral;
